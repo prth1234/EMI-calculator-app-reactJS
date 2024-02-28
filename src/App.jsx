@@ -189,7 +189,7 @@ function App() {
                   <li>Entered</li>
                 </ul>
                 <ul class="more-content">
-                  <li>Principal refers to the initial sum of money borrowed or invested, forming the basis upon which interest is calculated or returns are generated.
+                  <li>Principal: Initial sum of money borrowed or invested, forming the basis upon which interest is calculated or returns are generated.
 
 
 
