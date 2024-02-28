@@ -1,5 +1,44 @@
 import React, { useState, useRef } from 'react';
+import { Chart, registerables } from 'chart.js';
+// import { Pie } from 'react-chartjs-2';
 import './App.css'; // Import the CSS file for styling
+import { Pie } from 'react-chartjs-2';
+Chart.register(...registerables);
+
+
+
+
+
+function PaymentPieChart({ loanDetails }) {
+  const { loanAmount, emi, totalPayment, totalInterestPayable } = loanDetails;
+
+  const data = {
+    labels: ['Loan Amount', 'Total Interest', 'Total Payment'],
+    datasets: [
+      {
+        data: [
+          parseFloat(loanAmount),
+          totalInterestPayable !== null ? parseFloat(totalInterestPayable) : 0,
+          totalPayment !== null ? parseFloat(totalPayment) : 0,
+        ],
+        backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)',
+        ],
+        borderColor: [
+          'rgba(255, 99, 132, 1)',
+          'rgba(54, 162, 235, 1)',
+          'rgba(255, 206, 86, 1)',
+        ],
+      },
+    ],
+  };
+
+  return <Pie data={data} />;
+}
+
+
 
 function App() {
   // State variables to store input values
@@ -7,9 +46,10 @@ function App() {
   const [loanAmount, setLoanAmount] = useState('');
   const [interestRate, setInterestRate] = useState('');
   const [loanTenure, setLoanTenure] = useState('');
-  const [emi, setEMI] = useState(null); // New state for EMI
+  const [emi, setEMI] = useState(null);
   const [totalPayment, setTotalPayment] = useState(null);
   const [totalInterestPayable, setTotalInterestPayable] = useState(null);
+  const [chartData, setChartData] = useState(null);
 
   // Refs for input fields
   const loanAmountRef = useRef(null);
@@ -32,32 +72,71 @@ function App() {
   const handleNextStep = () => {
     setStep((prevStep) => prevStep + 1);
   };
+
+  const [loanDetails, setLoanDetails] = useState({
+    loanAmount: '',
+    emi: null,
+    totalPayment: null,
+    totalInterestPayable: null,
+  });
+
+
   const calculateEMI = () => {
     // Perform EMI calculation based on the standard formula
     const principal = parseFloat(loanAmount);
     const rateOfInterest = parseFloat(interestRate) / 100 / 12; // Monthly interest rate
     const numberOfPayments = parseFloat(loanTenure) * 12; // Total number of payments
-  
+
     const emiAmount =
       (principal * rateOfInterest * Math.pow(1 + rateOfInterest, numberOfPayments)) /
       (Math.pow(1 + rateOfInterest, numberOfPayments) - 1);
-  
+
     setEMI(emiAmount.toFixed(2));
-  
+
     // Calculate Total Payment (Principal + Interest)
     const totalPayment = emiAmount * numberOfPayments;
-  
+
     // Calculate Total Interest Payable
     const totalInterestPayable = totalPayment - principal;
-  
+
     setTotalPayment(totalPayment.toFixed(2));
     setTotalInterestPayable(totalInterestPayable.toFixed(2));
-  
+
+    setLoanDetails({
+      loanAmount: loanAmount,
+      emi: emiAmount.toFixed(2),
+      totalPayment: totalPayment.toFixed(2),
+      totalInterestPayable: totalInterestPayable.toFixed(2),
+    });
+
+
     // Move to the next step after calculating EMI
     handleNextStep();
   };
 
-  // Handle form submission
+  const generateChartData = () => {
+    const principalAmount = parseFloat(loanAmount);
+    const interestExpense = parseFloat(totalInterestPayable);
+
+    const chartData = {
+      labels: ['Principal Loan Amount', 'Interest Expense'],
+      datasets: [
+        {
+          data: [principalAmount, interestExpense],
+          backgroundColor: ['#36A2EB', '#FFCE56'],
+          hoverBackgroundColor: ['#36A2EB', '#FFCE56'],
+        },
+      ],
+    };
+
+    setChartData(chartData);
+  };
+
+  const handleVisualize = () => {
+    generateChartData();
+    setStep((prevStep) => prevStep + 1);
+  };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     switch (step) {
@@ -70,14 +149,21 @@ function App() {
       case 3:
         calculateEMI();
         break;
+      case 4:
+        // Handle any logic related to step 4 (Loan Summary) here
+        break;
+      case 5:
+        // Handle any logic related to step 5 (Chart) here
+        break;
       default:
         break;
     }
   };
 
+
   return (
     <div className="container">
-      <img src="src/assets/logo1.png" alt="Logo"></img>
+      {step !== 4 && step !=5 && <img src="src/assets/logo1.png" alt="Logo" ></img>}
 
       <form onSubmit={handleFormSubmit}>
         {step === 1 && (
@@ -160,96 +246,105 @@ function App() {
           </div>
         )}
 
-{step === 4 && emi !== null && (
-  <div key="emiResult">
-    <h2>Loan Repayment Summary</h2>
-
-
-
-
-
-
-
-
-    <section class="wrapper">
-            <main class="row title">
-              <ul>
-                <li>Serial Number</li>
-                <li>Description</li>
-                <li><span class="title-hide"></span> Amount</li>
-                
-                <li>Detail</li>
-              </ul>
-            </main>
-            <article class="row nfl">
+        {step === 4 && emi !== null && (
+          <div key="emiResult">
+            <h2>Loan Repayment Summary</h2>
+            <section className="wrapper">
+              <main className="row title">
                 <ul>
-                  <li><a href="#">1</a></li>
-                  <li>Principle</li>
-                  <li>${loanAmount}.00</li>
-                  <li>Entered</li>
-                </ul>
-                <ul class="more-content">
-                  <li>Principal: Initial sum of money borrowed or invested, forming the basis upon which interest is calculated or returns are generated.
-
-
-
-
-
-</li>
-                </ul>
-              </article>
-            <article class="row nfl">
-                <ul>
-                  <li><a href="#">2</a></li>
-                  <li>EMI Amount</li>
-                  <li>${emi}</li>
-              
-                  <li>Derived</li>
-                </ul>
-                <ul class="more-content">
-                  <li>EMI Amount: Periodic payment covering both principal and interest, applicable to various loans or financial commitments.</li>
-                </ul>
-              </article>
-            <article class="row nfl">
-              <ul>
-                <li><a href="#">3</a></li>
-                <li>Interest Expense</li>
-                <li>{totalInterestPayable !== null ? `$${totalInterestPayable}` : 'N/A'}</li>
-       
-                <li>Derived</li>
-              </ul>
-              <ul class="more-content">
-                <li>
-Interest Expense: The cost incurred for borrowing money, representing the payment made for the privilege of using funds from a lender or financial institution.
-
-</li>
-              </ul>
-            </article>
-            <article class="row nfl">
-                <ul>
-                  <li><a href="#">4</a></li>
-                  <li>Repayment Amount</li>
-                  <li>{totalPayment !== null ? `$${totalPayment}` : 'N/A'}</li>
-               
-                  <li>Derived</li>
-                </ul>
-                <ul class="more-content">
+                  <li>Serial Number</li>
+                  <li>Description</li>
                   <li>
-Repayable Amount: The total sum due for repayment, encompassing both the borrowed principal and accrued interest, typically associated with loans or financial obligations.
-
-
-
-
-
-</li>
+                    <span className="title-hide"></span> Amount
+                  </li>
+                  <li>Detail</li>
                 </ul>
-              </article>
-              </section>
+              </main>
+              <div id="pdf-content">
+                <article className="row nfl">
+                  <ul>
+                    <li>
+                      <a href="#">1</a>
+                    </li>
+                    <li>Principle</li>
+                    <li>${loanAmount}.00</li>
+                    <li>Entered</li>
+                  </ul>
+                  <ul className="more-content">
+                    <li>
+                      Principal: Initial sum of money borrowed or invested, forming the basis upon
+                      which interest is calculated or returns are generated.
+                    </li>
+                  </ul>
+                </article>
+                <article className="row nfl">
+                  <ul>
+                    <li>
+                      <a href="#">2</a>
+                    </li>
+                    <li>Loan EMI</li>
+                    <li>${emi}</li>
+                    <li>Derived</li>
+                  </ul>
+                  <ul className="more-content">
+                    <li>
+                      EMI Amount: Periodic payment covering both principal and interest, applicable
+                      to various loans or financial commitments.
+                    </li>
+                  </ul>
+                </article>
+                <article className="row nfl">
+                  <ul>
+                    <li>
+                      <a href="#">3</a>
+                    </li>
+                    <li>Interest Expense</li>
+                    <li>
+                      {totalInterestPayable !== null ? `$${totalInterestPayable}` : 'N/A'}
+                    </li>
+                    <li>Derived</li>
+                  </ul>
+                  <ul className="more-content">
+                    <li>
+                      Interest Expense: The cost incurred for borrowing money, representing the
+                      payment made for the privilege of using funds from a lender or financial
+                      institution.
+                    </li>
+                  </ul>
+                </article>
+                <article className="row nfl">
+                  <ul>
+                    <li>
+                      <a href="#">4</a>
+                    </li>
+                    <li>Repayment Amount</li>
+                    <li>{totalPayment !== null ? `$${totalPayment}` : 'N/A'}</li>
+                    <li>Derived</li>
+                  </ul>
+                  <ul className="more-content">
+                    <li>
+                      Repayable Amount: The total sum due for repayment, encompassing both the
+                      borrowed principal and accrued interest, typically associated with loans or
+                      financial obligations.
+                    </li>
+                  </ul>
+                </article>
+              </div>
+            </section>
+            <div className="button-group">
+              <button onClick={handleVisualize}>Visualize</button>
+              <button className="start" onClick={() => setStep(1)}>Start Over</button>
+            </div>
+          </div>
+        )}
 
 
 
 
-    {/* <button onClick={() => setStep(1)}>Start Over</button> */}
+{step === 5 && chartData !== null && (
+  <div key="chartResult">
+    <h2>Visualiser</h2>
+    <PaymentPieChart loanDetails={loanDetails} />
   </div>
 )}
 
