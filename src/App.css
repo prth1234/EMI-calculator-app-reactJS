@@ -6,6 +6,16 @@
   text-align: center;
 }
 
+
+body {
+  background-color: #1E1F1F;
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
+}
+
+/* Add any other global styles you need */
+
+
 .container {
   display: flex;
   flex-direction: column;

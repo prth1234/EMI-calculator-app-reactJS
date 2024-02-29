@@ -1,44 +1,49 @@
 // EMICalculatorBarChart.jsx
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
-const calculateEMI = (principal, interestRate, months) => {
-  const monthlyInterestRate = interestRate / 12 / 100;
-  const denominator = Math.pow(1 + monthlyInterestRate, months) - 1;
-  const emi = (principal * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, months)) / denominator;
+const calculateEMI = (principal, lendingRate, months) => {
+  const monthlylendingRate = lendingRate / 12 / 100;
+  const denominator = Math.pow(1 + monthlylendingRate, months) - 1;
+  const emi = (principal * monthlylendingRate * Math.pow(1 + monthlylendingRate, months)) / denominator;
   return emi;
 };
 
-const EMICalculatorBarChart = ({ loanAmount, interestRate, loanTenure }) => {
+const EMICalculatorBarChart = ({loanAmount, interestRate, loanTenure}) => {
+  const [principal, setPrincipal] = useState(loanAmount); // Initial loan amount
+  const [lendingRate, setlendingRate] = useState(interestRate); // Initial interest rate
+  const [loanTerm, setLoanTerm] = useState(loanTenure); // Initial loan term in months
   const [emiData, setEmiData] = useState([]);
 
-  useEffect(() => {
-    const handleCalculate = () => {
-      const loanAmountValue = parseFloat(loanAmount);
-      const interestRateValue = parseFloat(interestRate);
-      const loanTenureValue = parseInt(loanTenure, 10);
-
-      if (isNaN(loanAmountValue) || isNaN(interestRateValue) || isNaN(loanTenureValue) || loanAmountValue <= 0 || interestRateValue <= 0 || loanTenureValue <= 0) {
-        alert('Please enter valid loan details.');
-        return;
-      }
-
-      const data = [];
-      for (let i = 1; i <= loanTenureValue; i++) {
-        const emi = calculateEMI(loanAmountValue, interestRateValue, i);
-        data.push({ month: i, emi });
-      }
-      setEmiData(data);
-    };
-
-    handleCalculate();
-  }, [loanAmount, interestRate, loanTenure]);
+  const handleCalculate = () => {
+    const data = [];
+    for (let i = 1; i <= loanTerm; i++) {
+      const emi = calculateEMI(principal, lendingRate, i);
+      data.push({ month: i, emi });
+    }
+    setEmiData(data);
+  };
 
   return (
     <div>
-      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>EMI Calculator with Bar Chart</h2>
+      <h2>EMI Calculator with Bar Chart</h2>
+      <div>
+        <label>
+          Loan Amount:
+          <input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} />
+        </label>
+        <label>
+          Interest Rate (%):
+          <input type="number" value={lendingRate} onChange={(e) => setlendingRate(Number(e.target.value))} />
+        </label>
+        <label>
+          Loan Term (Months):
+          <input type="number" value={loanTerm} onChange={(e) => setLoanTerm(Number(e.target.value))} />
+        </label>
+        <button onClick={handleCalculate}>Calculate</button>
+      </div>
       {emiData.length > 0 && (
-        <BarChart width={600} height={400} data={emiData} style={{ margin: 'auto' }}>
+        <BarChart width={600} height={400} data={emiData}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />
