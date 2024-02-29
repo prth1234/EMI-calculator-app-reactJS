@@ -1,5 +1,5 @@
 // EMICalculatorBarChart.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 const calculateEMI = (principal, interestRate, months) => {
@@ -9,41 +9,36 @@ const calculateEMI = (principal, interestRate, months) => {
   return emi;
 };
 
-const EMICalculatorBarChart = () => {
-  const [principal, setPrincipal] = useState(100000); // Initial loan amount
-  const [interestRate, setInterestRate] = useState(8); // Initial interest rate
-  const [loanTerm, setLoanTerm] = useState(12); // Initial loan term in months
+const EMICalculatorBarChart = ({ loanAmount, interestRate, loanTenure }) => {
   const [emiData, setEmiData] = useState([]);
 
-  const handleCalculate = () => {
-    const data = [];
-    for (let i = 1; i <= loanTerm; i++) {
-      const emi = calculateEMI(principal, interestRate, i);
-      data.push({ month: i, emi });
-    }
-    setEmiData(data);
-  };
+  useEffect(() => {
+    const handleCalculate = () => {
+      const loanAmountValue = parseFloat(loanAmount);
+      const interestRateValue = parseFloat(interestRate);
+      const loanTenureValue = parseInt(loanTenure, 10);
+
+      if (isNaN(loanAmountValue) || isNaN(interestRateValue) || isNaN(loanTenureValue) || loanAmountValue <= 0 || interestRateValue <= 0 || loanTenureValue <= 0) {
+        alert('Please enter valid loan details.');
+        return;
+      }
+
+      const data = [];
+      for (let i = 1; i <= loanTenureValue; i++) {
+        const emi = calculateEMI(loanAmountValue, interestRateValue, i);
+        data.push({ month: i, emi });
+      }
+      setEmiData(data);
+    };
+
+    handleCalculate();
+  }, [loanAmount, interestRate, loanTenure]);
 
   return (
     <div>
-      <h2>EMI Calculator with Bar Chart</h2>
-      <div>
-        <label>
-          Loan Amount:
-          <input type="number" value={principal} onChange={(e) => setPrincipal(Number(e.target.value))} />
-        </label>
-        <label>
-          Interest Rate (%):
-          <input type="number" value={interestRate} onChange={(e) => setInterestRate(Number(e.target.value))} />
-        </label>
-        <label>
-          Loan Term (Months):
-          <input type="number" value={loanTerm} onChange={(e) => setLoanTerm(Number(e.target.value))} />
-        </label>
-        <button onClick={handleCalculate}>Calculate</button>
-      </div>
+      <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>EMI Calculator with Bar Chart</h2>
       {emiData.length > 0 && (
-        <BarChart width={600} height={400} data={emiData}>
+        <BarChart width={600} height={400} data={emiData} style={{ margin: 'auto' }}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" />
           <YAxis />

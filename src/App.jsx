@@ -5,6 +5,8 @@ import './App.css'; // Import the CSS file for styling
 import { Pie } from 'react-chartjs-2';
 import EMIScheduleBarChart from "./EMIScheduleBarChart.jsx"; // Assuming you have a component for the bar chart
 
+
+
 Chart.register(...registerables);
 
 
@@ -431,7 +433,8 @@ function App() {
       </div>
       <div style={{ flex: 1 }}>
         <h3>EMI Schedule</h3>
-        <EMIScheduleBarChart loanDetails={loanDetails} />
+        <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
+
       </div>
     </div>
   </div>
