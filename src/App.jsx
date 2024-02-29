@@ -3,6 +3,8 @@ import { Chart, registerables } from 'chart.js';
 // import { Pie } from 'react-chartjs-2';
 import './App.css'; // Import the CSS file for styling
 import { Pie } from 'react-chartjs-2';
+import EMIScheduleBarChart from "./EMIScheduleBarChart.jsx"; // Assuming you have a component for the bar chart
+
 Chart.register(...registerables);
 
 
@@ -37,6 +39,10 @@ function PaymentPieChart({ loanDetails }) {
 
   return <Pie data={data} />;
 }
+
+
+
+
 
 
 
@@ -180,9 +186,17 @@ function App() {
       <span style={{ transitionDelay: '0ms', marginBottom: '10px' , alignItems: 'right'}}></span>
     </label>
     <select value={currency} onChange={handleCurrencyChange} required>
-      <option value="USD">USD</option>
-      <option value="EUR">EUR</option>
-      <option value="JPY">INR</option>
+    <option value="USD" label="USD" />
+      <option value="EUR" label="EURO" />
+      <option value="INR" label="INR" />
+      <option value="JPY" label="JPY" />
+      <option value="GBP" label="GBP" />
+      <option value="AUD" label="AUD" />
+      <option value="CAD" label="CAD" />
+      <option value="CHF" label="CHF" />
+      <option value="CNY" label="CNY" />
+      <option value="NZD" label="NZD" />
+      <option value="HKD" label="HKD" />
       {/* Add more currency options as needed */}
     </select>
     <button onClick={handleNextStep} style={{ marginTop: '10px' }}>Next</button>
@@ -333,7 +347,7 @@ function App() {
                       <a href="#">1</a>
                     </li>
                     <li>Principle</li>
-                    <li>${loanAmount}.00</li>
+                    <li>{currency} {loanAmount}.00</li>
                     <li>Entered</li>
                   </ul>
                   <ul className="more-content">
@@ -349,7 +363,7 @@ function App() {
                       <a href="#">2</a>
                     </li>
                     <li>Loan EMI</li>
-                    <li>${emi}</li>
+                    <li>{currency} {emi}</li>
                     <li>Derived</li>
                   </ul>
                   <ul className="more-content">
@@ -366,7 +380,7 @@ function App() {
                     </li>
                     <li>Interest Expense</li>
                     <li>
-                      {totalInterestPayable !== null ? `$${totalInterestPayable}` : 'N/A'}
+                    {currency} {totalInterestPayable !== null ? `${totalInterestPayable}` : 'N/A'}
                     </li>
                     <li>Derived</li>
                   </ul>
@@ -384,7 +398,7 @@ function App() {
                       <a href="#">4</a>
                     </li>
                     <li>Repayment Amount</li>
-                    <li>{totalPayment !== null ? `$${totalPayment}` : 'N/A'}</li>
+                    <li>{currency} {totalPayment !== null ? `${totalPayment}` : 'N/A'}</li>
                     <li>Derived</li>
                   </ul>
                   <ul className="more-content">
@@ -410,10 +424,18 @@ function App() {
 {step === 6 && chartData !== null && (
   <div key="chartResult">
     <h2>Visualiser</h2>
-    <PaymentPieChart loanDetails={loanDetails} />
+    <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+      <div style={{ flex: 1 }}>
+        <h3>Payment Breakdown</h3>
+        <PaymentPieChart loanDetails={loanDetails} />
+      </div>
+      <div style={{ flex: 1 }}>
+        <h3>EMI Schedule</h3>
+        <EMIScheduleBarChart loanDetails={loanDetails} />
+      </div>
+    </div>
   </div>
 )}
-
       </form>
     </div>
   );
