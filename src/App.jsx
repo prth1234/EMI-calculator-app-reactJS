@@ -55,6 +55,8 @@ function App() {
   const loanAmountRef = useRef(null);
   const interestRateRef = useRef(null);
   const loanTenureRef = useRef(null);
+  const [currency, setCurrency] = useState('USD'); // Add currency state
+
 
   // Event handlers to update the state on input changes
   const handleLoanAmountChange = (e) => {
@@ -67,6 +69,9 @@ function App() {
 
   const handleLoanTenureChange = (e) => {
     setLoanTenure(e.target.value);
+  };
+  const handleCurrencyChange = (e) => {
+    setCurrency(e.target.value);
   };
 
   const handleNextStep = () => {
@@ -163,11 +168,38 @@ function App() {
 
   return (
     <div className="container">
-      {step !== 4 && step !=5 && <img src="src/assets/logo1.png" alt="Logo" ></img>}
+      {step !== 5 && step !=6 && <img src="src/assets/logo1.png" alt="Logo" ></img>}
 
       <form onSubmit={handleFormSubmit}>
-        {step === 1 && (
-          <div key="loanAmount" className="form-control">
+
+      {step === 1 && (
+
+
+  <div key="currency" className="form-control" style={{ display: 'flex', flexDirection: 'column', alignItems: 'centre' }}>
+    <label>
+      <span style={{ transitionDelay: '0ms', marginBottom: '10px' , alignItems: 'right'}}></span>
+    </label>
+    <select value={currency} onChange={handleCurrencyChange} required>
+      <option value="USD">USD</option>
+      <option value="EUR">EUR</option>
+      <option value="JPY">INR</option>
+      {/* Add more currency options as needed */}
+    </select>
+    <button onClick={handleNextStep} style={{ marginTop: '10px' }}>Next</button>
+  </div>
+)}
+
+
+
+
+        {step === 2 && (
+          <div key="loanAmount" className="form-control"      
+          >
+
+
+
+
+            
             <input
               type="number"
               value={loanAmount}
@@ -188,11 +220,45 @@ function App() {
               <span style={{ transitionDelay: '350ms' }}>n</span>
               <span style={{ transitionDelay: '350ms' }}>t</span>
             </label>
+
+
+ 
+
             <button onClick={handleNextStep}>Next</button>
+
+
+           
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+           
           </div>
+
+
+
         )}
 
-        {step === 2 && (
+        
+
+        {step === 3 && (
           <div key="interestRate" className="form-control">
             <input
               type="number"
@@ -220,7 +286,7 @@ function App() {
           </div>
         )}
 
-        {step === 3 && (
+        {step === 4 && (
           <div key="loanTenure" className="form-control">
             <input
               type="number"
@@ -246,7 +312,7 @@ function App() {
           </div>
         )}
 
-        {step === 4 && emi !== null && (
+        {step === 5 && emi !== null && (
           <div key="emiResult">
             <h2>Loan Repayment Summary</h2>
             <section className="wrapper">
@@ -341,7 +407,7 @@ function App() {
 
 
 
-{step === 5 && chartData !== null && (
+{step === 6 && chartData !== null && (
   <div key="chartResult">
     <h2>Visualiser</h2>
     <PaymentPieChart loanDetails={loanDetails} />
