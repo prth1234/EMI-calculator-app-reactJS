@@ -1,0 +1,489 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+body {
+  background-color: #1E1F1F;
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
+}
+
+/* Add any other global styles you need */
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.form-control {
+  position: relative;
+  margin: 20px 0 40px;
+  width: 190px;
+}
+
+.form-control input {
+  background-color: transparent;
+  border: 0;
+  border-bottom: 2px #fff solid;
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  font-size: 18px;
+  color: #fff;
+}
+
+.form-control input:focus,
+.form-control input:valid {
+  outline: 0;
+  border-bottom-color: lightblue;
+}
+
+.form-control label {
+  position: absolute;
+  top: 15px;
+  left: 0;
+  pointer-events: none;
+}
+
+.form-control label span {
+  display: inline-block;
+  font-size: 18px;
+  min-width: 5px;
+  color: #fff;
+  transition: 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.form-control input:focus + label span,
+.form-control input:valid + label span {
+  color: lightblue;
+  transform: translateY(-30px);
+}
+/* ProgressBar.css */
+
+button {
+  margin-top: 16px;
+  padding: 8px 16px;
+  background-color: #d2fb61;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+.notes{
+  margin-right: -999px;
+
+}
+button:hover {
+  background-color: #0e5a8a;
+}
+
+.button-group {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
+
+.start-over {
+  margin-left: 10px; /* Adjust the margin as needed */
+}
+
+/* Google fonts - Open Sans */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+
+/* colors */
+:root {
+  --blue: rgba(79, 192, 210, 1);
+  --green: rgba(82, 210, 154, 1);
+  --yellow: rgba(231, 196, 104, 0.7);
+  --orange: rgba(235, 118, 85, 1);
+  --dark-bg: rgba(0, 0, 0, 0.9);
+  --light-bg: rgba(0, 0, 0, 0.1);
+  --text: rgba(255, 255, 255, 0.9);
+}
+
+/* body */
+body{
+  background-color: black;
+}
+
+
+/* links */
+.nfl a, .mlb a, .nhl a, .pga a {
+  text-decoration: none;
+  transition: color 0.2s ease-out;
+}
+
+.nfl a {
+  color: var(--blue);
+}
+
+.nfl a:hover {
+  color: darken(var(--blue), 20%);
+}
+
+.mlb a {
+  color: var(--green);
+}
+
+.mlb a:hover {
+  color: darken(var(--green), 20%);
+}
+
+.nhl a {
+  color: var(--yellow);
+}
+
+.nhl a:hover {
+  color: darken(var(--yellow), 20%);
+}
+
+.pga a {
+  color: var(--orange);
+}
+
+.pga a:hover {
+  color: darken(var(--orange), 20%);
+}
+
+/* wrapper */
+.wrapper {
+  width: 100%;
+  max-width: 1000px;
+  margin: 20px auto 100px auto;
+  margin-bottom: 0px;
+  padding: 0;
+  background: var(--light-bg);
+  color: var(--text);
+  overflow: hidden;
+  position: relative;
+}
+
+/* lists */
+.row ul {
+  margin: 0;
+  padding: 0;
+}
+
+.row ul li {
+  margin: 0;
+  font-size: 16px;
+  font-weight: normal;
+  list-style: none;
+  display: inline-block;
+  width: 20%;
+  box-sizing: border-box;
+}
+
+.title ul li {
+  padding: 15px 13px;
+}
+
+.row ul li {
+  padding: 5px 10px;
+}
+
+/* rows */
+.row {
+  padding: 20px 0;
+  height: 30px;
+  font-size: 0;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.2s ease-out;
+  border-top: 1px solid darken(var(--light-bg), 100%);
+}
+
+.row:hover {
+  background-color: --dark-bg(var(--dark-bg), 10%);
+  height: 65px;
+}
+
+.title {
+  padding: 25px 0 5px 0;
+  height: 45px;
+  font-size: 0;
+  background-color: var(--dark-bg);
+  border-left: 3px solid darken(var(--dark-bg), 100%);
+}
+
+.title:hover {
+  height: 45px;
+  background-color: var(--dark-bg);
+  border-left: 3px solid darken(var(--dark-bg), 100%);
+}
+
+.title-hide {
+  display: none;
+}
+
+.nfl {
+  border-left: 3px solid darken(var(--blue), 30%);
+}
+
+.nfl:hover {
+  border-left: 3px solid var(--blue);
+}
+
+.mlb {
+  border-left: 3px solid darken(var(--green), 30%);
+}
+
+.mlb:hover {
+  border-left: 3px solid var(--green);
+}
+
+.nhl {
+  border-left: 3px solid darken(var(--yellow), 30%);
+}
+
+.nhl:hover {
+  border-left: 3px solid var(--yellow);
+}
+
+.pga {
+  border-left: 3px solid darken(var(--orange), 30%);
+}
+
+.pga:hover {
+  border-left: 3px solid var(--orange);
+}
+
+/* row one - fadeIn */
+.row-fadeIn-wrapper {
+  opacity: 0;
+  font-size: 0;
+  height: 0;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.2s ease-out;
+  animation: fadeIn 0.4s ease-out 2s 1 alternate;
+  animation-fill-mode: forwards;
+}
+
+.row-fadeIn-wrapper:hover {
+  height: 35px;
+}
+
+.fadeIn {
+  padding: 20px 0;
+  font-size: 0;
+  position: absolute;
+  transition: all 0.2s ease-out;
+  width: 100%;
+}
+
+.fadeIn:hover {
+  background-color: darken(var(--dark-bg), 10%);
+}
+
+/* row two - fadeOut */
+.row-fadeOut-wrapper {
+  font-size: 0;
+  overflow: hidden;
+  position: relative;
+  transition: all 0.2s ease-out;
+  animation: fadeOut 0.4s ease-out 8s 1 alternate;
+  animation-fill-mode: forwards;
+  opacity: 1;
+  height: 65px;
+}
+
+.row-fadeOut-wrapper:hover {
+  height: 100px;
+}
+
+/* update content */
+.update-row {
+  animation: update 0.5s ease-out 12s 1 alternate;
+}
+
+.update1 {
+  position: absolute;
+  top: 25px;
+  display: inline-block;
+  opacity: 1;
+  animation: update1 1s ease-out 12s 1 alternate;
+  animation-fill-mode: forwards;
+}
+
+.update2 {
+  position: absolute;
+  top: 25px;
+  display: inline-block;
+  opacity: 0;
+  animation: update2 4s ease-out 13s 1 alternate;
+  animation-fill-mode: forwards;
+}
+
+/* more content */
+ul.more-content li {
+  position: relative;
+  top: 22px;
+  font-size: 13px;
+  margin: 0;
+  padding: 10px 13px;
+  display: block;
+  height: 50px;
+  width: 100%;
+
+
+  color: darken(var(--text), 50%);
+}
+
+/* small content */
+.small {
+  color: darken(var(--text), 60%);
+  font-size: 10px;
+  padding: 0 10px;
+  margin: 0;
+  display: none;
+}
+
+
+.chart-container {
+  height: 400px; /* Set an appropriate height for your chart */
+}
+.dropdown-container {
+  position: relative;
+}
+
+.dropdown {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.dropdown-menu {
+  border: 1px solid #ccc;
+  border-radius: 0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 0;
+  padding: 0;
+}
+
+.dropdown-item {
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: normal;
+  color: #333;
+  transition: all 0.15s ease;
+}
+
+.dropdown-item:hover {
+  background-color: #f5f5f5;
+}
+
+.dropdown-item:focus,
+.dropdown-item.active {
+  background-color: #e0e0e0;
+}
+
+.dropdown-toggle {
+  border: none;
+  border-radius: 0;
+  padding: 5px 15px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #333;
+  box-shadow: none;
+}
+
+.dropdown-toggle:focus,
+.dropdown-toggle:active {
+  outline: none;
+  box-shadow: none;
+}
+
+.dropdown-toggle:after {
+  display: none;
+}
+
+.loan-amount {
+  width: calc(100% - 100px);
+}
+
+/* keyframe animations */
+@keyframes fadeIn {
+  from {
+    background: var(--light-bg);
+    opacity: 0;
+    padding: 0;
+  }
+  to {
+    background: darken(var(--light-bg), 80%);
+    opacity: 1;
+    padding: 0 0 65px 0;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    background: darken(var(--light-bg), 80%);
+    opacity: 1;
+    height: 65px;
+  }
+  to {
+    background: var(--light-bg);
+    opacity: 0;
+    height: 0;
+  }
+}
+
+@keyframes typing {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+
+
+
+@keyframes update {
+  0% {
+    background: darken(var(--light-bg), 80%);
+  }
+  50% {
+    background: var(--light-bg);
+  }
+  100% {
+    background: darken(var(--light-bg), 80%);
+  }
+}
+
+@keyframes update1 {
+  0% {
+    opacity: 0;
+  }
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes update2 {
+  0% {
+    opacity: 0;
+    color: var(--text);
+  }
+  20% {
+    opacity: 1;
+    color: var(--green);
+  }
+  100% {
+    opacity: 1;
+    color: var(--text);
+  }
+}
+
+
