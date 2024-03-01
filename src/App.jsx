@@ -228,11 +228,12 @@ function App() {
 
             
             <input
-              type="number"
+              type=""
+              pattern="\d+" 
               value={loanAmount}
               onChange={handleLoanAmountChange}
               ref={loanAmountRef}
-              required
+              
             />
             <label>
               <span style={{ transitionDelay: '0ms' }}>L</span>
@@ -288,11 +289,12 @@ function App() {
         {step === 3 && (
           <div key="interestRate" className="form-control">
             <input
-              type="number"
+              type=""
+              pattern="\d+" 
               value={interestRate}
               onChange={handleInterestRateChange}
               ref={interestRateRef}
-              required
+              
             />
             <label>
               <span style={{ transitionDelay: '0ms' }}>I</span>
@@ -316,11 +318,12 @@ function App() {
         {step === 4 && (
           <div key="loanTenure" className="form-control">
             <input
-              type="number"
+               type=""
+               pattern="\d+" 
               value={loanTenure}
               onChange={handleLoanTenureChange}
               ref={loanTenureRef}
-              required
+              
             />
             <label>
               <span style={{ transitionDelay: '0ms' }}>L</span>
