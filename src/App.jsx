@@ -447,11 +447,15 @@ function App() {
       </div>
       <div style={{ flex: 1 }}>
         <h3>EMI Schedule</h3>
+        
         <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
 
       </div>
     </div>
   </div>
+
+
+
 )}
       </form>
     </div>

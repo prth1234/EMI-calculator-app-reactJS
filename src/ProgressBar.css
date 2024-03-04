@@ -7,9 +7,9 @@
 
 .progress-bar {
   height: 100%;
-  background-color: #ffeb3b; /* Neon yellow color */
+  /* background-color: #ffeb3b;  Neon yellow color */
+  background: linear-gradient(to right, #800080, #00008B); /* Gradient from purple to dark blue */
   /* box-shadow: rgb(9, 188, 9) 0px 2px 29px 0px; */
   background-color: rgb(9, 188, 9);
-
   transition: width 0.3s ease; /* Add a smooth transition effect */
 }
