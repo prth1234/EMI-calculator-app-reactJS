@@ -1,38 +1,41 @@
-
 /* RepaymentScheduleTable.css */
 
 /* Apply styling to the Repayment Schedule Table */
 div.RepaymentScheduleTable {
     margin: 20px 0;
-  }
-  
-  h2 {
+}
+
+h2 {
     color: #fff;
-  }
-  
-  table {
-    width: 100%;
+}
+
+table {
+    width: 110%; /* Make the table broader */
     border-collapse: collapse;
     margin-top: 20px;
-  }
-  
-  thead {
+}
+
+thead {
     background-color: var(--dark-bg);
     color: var(--text);
-  }
-  
-  th, td {
-    padding: 10px;
+}
+
+th, td {
+    padding: 12px; /* Increase padding for better spacing */
     text-align: left;
-  }
-  
-  th {
-    border-bottom: 2px solid var(--text);
-  }
-  
-  tbody tr:nth-child(even) {
+    border: 1px solid #ddd; /* Add border to cells */
+}
+
+th {
+    border-bottom: 3px solid var(--text); /* Make header border thicker */
+}
+
+tbody tr:nth-child(even) {
     background-color: var(--light-bg);
-  }
-  
-  /* Add additional styles as needed */
-  
+}
+
+tbody tr:hover {
+    background: linear-gradient(to right, #800080, #00008B); /* Change background color on hover */
+}
+
+/* Add additional styles as needed */
