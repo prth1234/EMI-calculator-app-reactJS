@@ -1,14 +1,32 @@
-// RepaymentScheduleTable.jsx
-
-import React from 'react';
+import React, { useRef } from 'react';
 import './RepaymentScheduleTable.css'; // Import your CSS file for styling
-import './App.css'
+import './App.css';
+import { FaCopy } from 'react-icons/fa';
+// import { FaCopy } from 'react-icons/fa/index.esm';
+
 
 const RepaymentScheduleTable = ({ paymentSchedule }) => {
+  const tableRef = useRef(null);
+
+  const handleCopyClick = () => {
+    if (tableRef.current) {
+      const range = document.createRange();
+      range.selectNode(tableRef.current);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      document.execCommand('copy');
+      window.getSelection().removeAllRanges();
+      alert('Table content copied!');
+    }
+  };
+
   return (
     <div>
       <h2>Amortization Schedule</h2>
-      <table>
+      <button className="copy-button" onClick={handleCopyClick}>
+        <FaCopy /> Copy Table
+      </button>
+      <table ref={tableRef}>
         <thead>
           <tr>
             <th>SNo</th>
@@ -32,7 +50,6 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
           ))}
         </tbody>
       </table>
-    
     </div>
   );
 };

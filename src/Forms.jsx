@@ -10,7 +10,6 @@ import ProgressBar from './ProgressBar';
 import AmortizationTable from './AmortizationTable.jsx'
 import {calculateRepaymentSchedule} from './calculateRepaymentSchedule.jsx'
 import RepaymentScheduleTable from './RepaymentScheduleTable.jsx';
-import jsPDF from 'jspdf';
 
 function PaymentPieChart({ loanDetails }) {
     const { loanAmount, emi, totalPayment, totalInterestPayable } = loanDetails;
@@ -85,6 +84,12 @@ function Forms(){
     setProgress((prevProgress) => prevProgress + (100 / 3)); // Update progress on each step
 
   };
+  // const history = useHistory();
+
+  // ... (your existing code)
+
+  // Use useEffect to listen for changes in the step and update the URL accordingly
+ 
 
   const [loanDetails, setLoanDetails] = useState({
     loanAmount: '',
