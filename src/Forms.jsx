@@ -7,7 +7,9 @@ import { Pie } from 'react-chartjs-2';
 import EMIScheduleBarChart from "./EMIScheduleBarChart.jsx"; // Assuming you have a component for the bar chart
 import profilePicture from './assets/logo1.png'
 import ProgressBar from './ProgressBar';
-
+import AmortizationTable from './AmortizationTable.jsx'
+import {calculateRepaymentSchedule} from './calculateRepaymentSchedule.jsx'
+import RepaymentScheduleTable from './RepaymentScheduleTable.jsx';
 function PaymentPieChart({ loanDetails }) {
     const { loanAmount, emi, totalPayment, totalInterestPayable } = loanDetails;
   
@@ -66,6 +68,8 @@ function Forms(){
   const handleInterestRateChange = (e) => {
     setInterestRate(e.target.value);
   };
+  const [repaymentSchedule, setRepaymentSchedule] = useState([]);
+
 
   const handleLoanTenureChange = (e) => {
     setLoanTenure(e.target.value);
@@ -88,6 +92,7 @@ function Forms(){
   });
 
   
+  const [amortizationSchedule, setAmortizationSchedule] = useState([]);
 
 
   const calculateEMI = () => {
@@ -123,27 +128,63 @@ function Forms(){
     handleNextStep();
 
 
-    const yearlyDistributionData = [];
-    let remainingBalance = principalAmount;
-    for (let year = 1; year <= parseFloat(loanTenure); year++) {
-      const interestPayment = remainingBalance * rateOfInterest;
-      const principalPayment = emiAmount - interestPayment;
-      remainingBalance -= principalPayment;
+    // const yearlyDistributionData = [];
+    // let remainingBalance = principal;
+    // for (let year = 1; year <= parseFloat(loanTenure); year++) {
+    //   const interestPayment = remainingBalance * rateOfInterest;
+    //   const principalPayment = emiAmount - interestPayment;
+    //   remainingBalance -= principalPayment;
 
-      yearlyDistributionData.push({
-        year,
-        principal: principalPayment.toFixed(2),
-        interest: interestPayment.toFixed(2),
-        totalPayment: emiAmount.toFixed(2),
-        balance: remainingBalance.toFixed(2),
-      });
-    }
+    //   yearlyDistributionData.push({
+    //     year,
+    //     principal: principalPayment.toFixed(2),
+    //     interest: interestPayment.toFixed(2),
+    //     totalPayment: emiAmount.toFixed(2),
+    //     balance: remainingBalance.toFixed(2),
+    //   });
+    // }
 
-    setYearlyDistribution(yearlyDistributionData);
+    // setAmortizationSchedule(yearlyDistributionData);
 
 
   };
+  // const handleYearlyDistribution = () => {
+  //   // Other logic...
+  
+  //   // Move to the next step after displaying the table
+  //   setStep((prevStep) => prevStep + 1);
+  //   console.log('Amortization Schedule:', amortizationSchedule);
 
+  //   // Render AmortizationTable with amortizationSchedule data
+  //   return (
+  //     <div key="amortizationSchedule">
+  //       <h2>Amortization Schedule</h2>
+  //       <AmortizationTable input={{ amortization: amortizationSchedule }} />
+  //       {/* <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}>
+  //         <button onClick={() => setStep(1)}>Start Over</button>
+  //       </div> */}
+  //     </div>
+  //   );
+  // };
+
+  const handleRepaymentSchedule = () => {
+    const loanDetails = {
+      loanAmount: parseFloat(loanAmount),
+      interestRate: parseFloat(interestRate),
+      loanTerm: parseFloat(loanTenure),
+      startDate: new Date(),  // Replace with your actual start date logic
+      paymentFrequency: 'monthly',  // Replace with your actual payment frequency logic
+    };
+
+    const repaymentSchedule = calculateRepaymentSchedule(loanDetails);
+    console.log("edkfrhejfk")
+    // Display the repayment schedule table
+    setStep(7); // Set the step directly to 7
+    console.log()
+    setRepaymentSchedule(repaymentSchedule);  // Assume you have a state variable for the repayment schedule
+  };
+
+  
   const generateChartData = () => {
     const principalAmount = parseFloat(loanAmount);
     const interestExpense = parseFloat(totalInterestPayable);
@@ -443,6 +484,8 @@ function Forms(){
             {/* <button>
 <span class="text">EMI Scheduler</span>
 </button> */}
+            <button onClick={handleRepaymentSchedule}>Amortization Calculator</button>
+
             <button className="start" onClick={() => setStep(1)}>Start Over</button>
           </div>
         </div>
@@ -463,7 +506,7 @@ function Forms(){
       <h3>EMI Schedule</h3>
       
       <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
-      <button onClick={handleVisualize}>Yearly Distribution</button>
+      {/* <button onClick={handleVisualize}>Amortisation Schedule</button> */}
     </div>
   </div>
 </div>
@@ -471,6 +514,38 @@ function Forms(){
 
 
 )}
+
+{step === 7  && (
+  // console.log("Entered step7");
+  <div key="repaymentSchedule">
+  {/* <h2 style={{ color: 'white' }}>Repayment Schedule</h2> */}
+  <RepaymentScheduleTable paymentSchedule={repaymentSchedule} />
+  <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}>
+    <button onClick={() => setStep(1)}>Start Over</button>
+  </div>
+</div>
+
+
+// <div key="chartResult">
+//   <h2>Visualiser</h2>
+//   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+//     <div style={{ flex: 1 }}>
+//       <h3>Payment Breakdown</h3>
+//       <PaymentPieChart loanDetails={loanDetails} />
+//     </div>
+//     <div style={{ flex: 1 }}>
+//       <h3>EMI Schedule</h3>
+      
+//       <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
+//       {/* <button onClick={handleVisualize}>Amortisation Schedule</button> */}
+//     </div>
+//   </div>
+// </div>
+
+
+
+)}
+
     </form>
         
 </div>
@@ -480,3 +555,5 @@ function Forms(){
 }
 
 export default Forms;
+
+
