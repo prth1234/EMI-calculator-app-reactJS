@@ -93,9 +93,9 @@ body {
 
 button {
   margin-top: 16px;
-  padding: 8px 16px;
-  background-color: #d2fb61;
-  color: white;
+  /* padding: 8px 16px; */
+  /* background-color: #d2fb61; */
+  /* color: white; */
   border: none;
   cursor: pointer;
 }
@@ -104,7 +104,7 @@ button {
 
 }
 button:hover {
-  background-color: #0e5a8a;
+  background: linear-gradient(to right, #800080, #00008B); /* Gradient from purple to dark blue */
 }
 
 .button-group {
@@ -553,3 +553,4 @@ ul.more-content li {
   fill: white;
   transform: scale(1.2);
 } 
+
