@@ -1,11 +1,13 @@
 // RepaymentScheduleTable.jsx
 
 import React from 'react';
+import './RepaymentScheduleTable.css'; // Import your CSS file for styling
+import './App.css'
 
 const RepaymentScheduleTable = ({ paymentSchedule }) => {
   return (
     <div>
-      <h2>Repayment Schedule</h2>
+      <h2>Amortization Schedule</h2>
       <table>
         <thead>
           <tr>
@@ -30,6 +32,7 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
           ))}
         </tbody>
       </table>
+    
     </div>
   );
 };

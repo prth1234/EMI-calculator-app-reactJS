@@ -1,0 +1,38 @@
+
+/* RepaymentScheduleTable.css */
+
+/* Apply styling to the Repayment Schedule Table */
+div.RepaymentScheduleTable {
+    margin: 20px 0;
+  }
+  
+  h2 {
+    color: #fff;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  thead {
+    background-color: var(--dark-bg);
+    color: var(--text);
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  th {
+    border-bottom: 2px solid var(--text);
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: var(--light-bg);
+  }
+  
+  /* Add additional styles as needed */
+  

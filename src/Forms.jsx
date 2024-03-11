@@ -10,6 +10,8 @@ import ProgressBar from './ProgressBar';
 import AmortizationTable from './AmortizationTable.jsx'
 import {calculateRepaymentSchedule} from './calculateRepaymentSchedule.jsx'
 import RepaymentScheduleTable from './RepaymentScheduleTable.jsx';
+import jsPDF from 'jspdf';
+
 function PaymentPieChart({ loanDetails }) {
     const { loanAmount, emi, totalPayment, totalInterestPayable } = loanDetails;
   
@@ -182,8 +184,10 @@ function Forms(){
     setStep(7); // Set the step directly to 7
     console.log()
     setRepaymentSchedule(repaymentSchedule);  // Assume you have a state variable for the repayment schedule
-  };
+    // generatePDF(repaymentSchedule);
 
+  };
+  
   
   const generateChartData = () => {
     const principalAmount = parseFloat(loanAmount);
@@ -480,13 +484,21 @@ function Forms(){
             </div>
           </section>
           <div className="button-group" style={{display:"flex",gap:7 , justifyContent:'center'}}>
-            <button onClick={handleVisualize}>Visualize</button>
+          <button className="start" onClick={() => setStep(1)}>Start Over</button>
+
             {/* <button>
 <span class="text">EMI Scheduler</span>
 </button> */}
-            <button onClick={handleRepaymentSchedule}>Amortization Calculator</button>
+            {/* <button onClick={handleRepaymentSchedule}>Amortization Calculator</button> */}
+            <button onClick={handleRepaymentSchedule} class="BTNNN">
+    <svg height="24" width="24" fill="#FFFFFF" viewBox="0 0 24 24" data-name="Layer 1" id="Layer_1" class="sparkle">
+        <path d="M10,21.236,6.755,14.745.264,11.5,6.755,8.255,10,1.764l3.245,6.491L19.736,11.5l-6.491,3.245ZM18,21l1.5,3L21,21l3-1.5L21,18l-1.5-3L18,18l-3,1.5ZM19.333,4.667,20.5,7l1.167-2.333L24,3.5,21.667,2.333,20.5,0,19.333,2.333,17,3.5Z"></path>
+    </svg>
 
-            <button className="start" onClick={() => setStep(1)}>Start Over</button>
+    <span class="text">Generate Amortization Table</span>
+</button>
+<button onClick={handleVisualize}>Visualize</button>
+
           </div>
         </div>
       )}
@@ -522,6 +534,8 @@ function Forms(){
   <RepaymentScheduleTable paymentSchedule={repaymentSchedule} />
   <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}>
     <button onClick={() => setStep(1)}>Start Over</button>
+    {/* <button onClick={generatePDF}>Download</button> */}
+
   </div>
 </div>
 
