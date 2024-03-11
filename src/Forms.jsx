@@ -243,7 +243,7 @@ function Forms(){
 
     <div className="container">
 
-    {step !== 5 && step !=6 && <img src={profilePicture} alt="Logo" ></img>}
+    {step !== 5 && step !=6 && step!=7 && <img src={profilePicture} alt="Logo" ></img>}
     {step < 5 &&  <ProgressBar progress={progress} /> }
     <form onSubmit={handleFormSubmit}>
 
@@ -487,7 +487,7 @@ function Forms(){
           <button className="start" onClick={() => setStep(1)}>Start Over</button>
           <button onClick={handleVisualize}>Visualize</button>
 
-          <button onClick={handleRepaymentSchedule}>✨Generate Amortization Table</button>
+          <button class ="genBtn"onClick={handleRepaymentSchedule}>✨Generate Amortization Table</button>
 
             {/* <button>
 
@@ -536,7 +536,7 @@ function Forms(){
   {/* <h2 style={{ color: 'white' }}>Repayment Schedule</h2> */}
   <RepaymentScheduleTable paymentSchedule={repaymentSchedule} />
   <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}>
-    <button onClick={() => setStep(1)}>Start Over</button>
+    {/* <button onClick={() => setStep(1)}>Start Over</button> */}
     {/* <button onClick={generatePDF}>Download</button> */}
 
   </div>

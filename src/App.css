@@ -99,6 +99,14 @@ button {
   border: none;
   cursor: pointer;
 }
+.genBtn {
+  margin-top: 16px;
+  /* padding: 8px 16px; */
+  /* background-color: #d2fb61; */
+  /* color: white; */
+  border: none;
+  cursor: pointer;
+}
 .notes{
   margin-right: -999px;
 
@@ -111,6 +119,13 @@ button:hover {
   margin-right: 10px; /* Adjust the margin as needed */
 }
 
+.genBtn:hover {
+  background: linear-gradient(to right, #800080, #00008B); 
+}
+
+.genBtn-group {
+  margin-right: 10px; /* Adjust the margin as needed */
+}
 .start-over {
   margin-left: 10px; /* Adjust the margin as needed */
 }

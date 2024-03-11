@@ -6,13 +6,13 @@ div.RepaymentScheduleTable {
 }
 
 h2 {
-    color: #fff;
+    color: #fff;margin-top: 100px;
 }
 
 table {
     width: 110%; /* Make the table broader */
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 50px;
 }
 
 thead {

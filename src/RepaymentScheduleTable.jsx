@@ -11,12 +11,12 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
       <table>
         <thead>
           <tr>
-            <th>Payment Number</th>
+            <th>SNo</th>
             <th>Payment Date</th>
             <th>Principal</th>
             <th>Interest</th>
             <th>Total Payment</th>
-            <th>Remaining Balance</th>
+            <th>Remaining</th>
           </tr>
         </thead>
         <tbody>
