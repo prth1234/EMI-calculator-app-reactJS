@@ -173,7 +173,10 @@ function Forms(){
   //     </div>
   //   );
   // };
-
+  const handleBackStep = () => {
+    setStep(5);
+    // setProgress((prevProgress) => prevProgress - (100 / 3)); // Update progress on each step
+  };
   const handleRepaymentSchedule = () => {
     const loanDetails = {
       loanAmount: parseFloat(loanAmount),
@@ -528,7 +531,10 @@ function Forms(){
       <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
       {/* <button onClick={handleVisualize}>Amortisation Schedule</button> */}
     </div>
+    
   </div>
+  <button onClick={handleBackStep}>⤶ Back to Summary</button>
+
 </div>
 
 
@@ -538,31 +544,23 @@ function Forms(){
 {step === 7  && (
   // console.log("Entered step7");
   <div key="repaymentSchedule">
+      {/* <button onClick={handleBackStep}>⤶ Back to Summary</button> */}
+
   {/* <h2 style={{ color: 'white' }}>Repayment Schedule</h2> */}
   <RepaymentScheduleTable paymentSchedule={repaymentSchedule} />
-  <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}>
+  {/* <div className="button-group" style={{ display: 'flex', gap: 7, justifyContent: 'center' }}> */}
+  <button onClick={handleBackStep}>⤶ Back to Summary</button>
+  
+
     {/* <button onClick={() => setStep(1)}>Start Over</button> */}
     {/* <button onClick={generatePDF}>Download</button> */}
 
-  </div>
+
+  {/* </div> */}
 </div>
 
 
-// <div key="chartResult">
-//   <h2>Visualiser</h2>
-//   <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-//     <div style={{ flex: 1 }}>
-//       <h3>Payment Breakdown</h3>
-//       <PaymentPieChart loanDetails={loanDetails} />
-//     </div>
-//     <div style={{ flex: 1 }}>
-//       <h3>EMI Schedule</h3>
-      
-//       <EMIScheduleBarChart loanAmount={loanAmount} interestRate={interestRate} loanTenure={loanTenure} />
-//       {/* <button onClick={handleVisualize}>Amortisation Schedule</button> */}
-//     </div>
-//   </div>
-// </div>
+
 
 
 

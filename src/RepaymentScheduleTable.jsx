@@ -26,6 +26,8 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
       <button className="copy-button" onClick={handleCopyClick}>
         <FaCopy /> Copy Table
       </button>
+      
+
       <table ref={tableRef}>
         <thead>
           <tr>
