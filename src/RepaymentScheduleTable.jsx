@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { FaCopy, FaCheck } from 'react-icons/fa';
+// import { FaCopy, FaCheck } from 'react-icons/fa';
 import './RepaymentScheduleTable.css'; // Import your CSS file for styling
 import './App.css';
-
+import { FaCopy, FaCheck, FaFilePdf, FaFileExcel } from 'react-icons/fa';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import * as XLSX from 'xlsx';
 const RepaymentScheduleTable = ({ paymentSchedule }) => {
   const [isCopied, setIsCopied] = useState(false);
   const tableRef = useRef(null);
@@ -19,6 +22,24 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
       setTimeout(() => setIsCopied(false), 1500); // Reset the check mark after 1.5 seconds
     }
   };
+  const handleDownloadPDF = () => {
+    if (tableRef.current) {
+      html2canvas(tableRef.current).then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF();
+        pdf.addImage(imgData, 'PNG', 0, 0);
+        pdf.save('table.pdf');
+      });
+    }
+  };
+
+  const handleDownloadExcel = () => {
+    const ws = XLSX.utils.table_to_sheet(tableRef.current);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    XLSX.writeFile(wb, 'table.xlsx');
+  };
+
 
   return (
     <div>
@@ -51,6 +72,12 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
           ))}
         </tbody>
       </table>
+      <button className="download-button" onClick={handleDownloadPDF}>
+          <FaFilePdf /> Download as PDF
+        </button>
+        <button className="download-button" onClick={handleDownloadExcel}>
+          <FaFileExcel /> Download as Excel
+        </button>
     </div>
   );
 };
