@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
+import { FaCopy, FaCheck } from 'react-icons/fa';
 import './RepaymentScheduleTable.css'; // Import your CSS file for styling
 import './App.css';
-import { FaCopy } from 'react-icons/fa';
-// import { FaCopy } from 'react-icons/fa/index.esm';
-
 
 const RepaymentScheduleTable = ({ paymentSchedule }) => {
+  const [isCopied, setIsCopied] = useState(false);
   const tableRef = useRef(null);
 
   const handleCopyClick = () => {
@@ -16,17 +15,17 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
       window.getSelection().addRange(range);
       document.execCommand('copy');
       window.getSelection().removeAllRanges();
-      alert('Table content copied!');
+      setIsCopied(true);
+      setTimeout(() => setIsCopied(false), 1500); // Reset the check mark after 1.5 seconds
     }
   };
 
   return (
     <div>
       <h2>Amortization Schedule</h2>
-      <button className="copy-button" onClick={handleCopyClick}>
-        <FaCopy /> Copy Table
+      <button className={`copy-button ${isCopied ? 'copied' : ''}`} onClick={handleCopyClick}>
+        {isCopied ? <FaCheck /> : <FaCopy />} {isCopied ? 'Copied!' : 'Copy Table'}
       </button>
-      
 
       <table ref={tableRef}>
         <thead>
