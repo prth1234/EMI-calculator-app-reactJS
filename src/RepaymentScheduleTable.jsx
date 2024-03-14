@@ -22,17 +22,28 @@ const RepaymentScheduleTable = ({ paymentSchedule }) => {
       setTimeout(() => setIsCopied(false), 1500); // Reset the check mark after 1.5 seconds
     }
   };
+  
+  
   const handleDownloadPDF = () => {
     if (tableRef.current) {
-      html2canvas(tableRef.current).then((canvas) => {
+      html2canvas(tableRef.current, { scale: 2 }).then((canvas) => {
         const imgData = canvas.toDataURL('image/png');
-        const pdf = new jsPDF();
-        pdf.addImage(imgData, 'PNG', 0, 0);
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+  
+        // Set PDF background color to black
+        pdf.setFillColor(0, 0, 0);
+        pdf.rect(0, 0, pdfWidth, pdfHeight, 'F');
+  
+        // Set text color to black
+        pdf.setTextColor(0, 0, 0);
+  
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
         pdf.save('table.pdf');
       });
     }
   };
-
   const handleDownloadExcel = () => {
     const ws = XLSX.utils.table_to_sheet(tableRef.current);
     const wb = XLSX.utils.book_new();

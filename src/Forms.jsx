@@ -311,6 +311,12 @@ function Forms(){
             <span style={{ transitionDelay: '350ms' }}>u</span>
             <span style={{ transitionDelay: '350ms' }}>n</span>
             <span style={{ transitionDelay: '350ms' }}>t</span>
+            <span style={{ transitionDelay: '350ms' }}></span>
+            <span style={{ transitionDelay: '350ms' }}>(</span>
+            <span style={{ transitionDelay: '350ms' }}>{currency}</span>
+            <span style={{ transitionDelay: '350ms' }}>)</span>
+
+
           </label>
 
 
@@ -374,6 +380,9 @@ function Forms(){
             <span style={{ transitionDelay: '350ms' }}>a</span>
             <span style={{ transitionDelay: '350ms' }}>t</span>
             <span style={{ transitionDelay: '350ms' }}>e</span>
+            <span style={{ transitionDelay: '350ms' }}> </span>
+            <span style={{ transitionDelay: '350ms' }}>%</span>
+
           </label>
           <button onClick={handleNextStep}>Next</button>
         </div>
@@ -390,17 +399,30 @@ function Forms(){
             
           />
           <label>
-            <span style={{ transitionDelay: '0ms' }}>L</span>
-            <span style={{ transitionDelay: '50ms' }}>o</span>
-            <span style={{ transitionDelay: '100ms' }}>a</span>
-            <span style={{ transitionDelay: '150ms' }}>n</span>
-            <span style={{ transitionDelay: '200ms' }}> </span>
-            <span style={{ transitionDelay: '250ms' }}>T</span>
-            <span style={{ transitionDelay: '300ms' }}>e</span>
-            <span style={{ transitionDelay: '350ms' }}>n</span>
-            <span style={{ transitionDelay: '350ms' }}>u</span>
-            <span style={{ transitionDelay: '350ms' }}>r</span>
-            <span style={{ transitionDelay: '350ms' }}>e</span>
+          <span style={{ transitionDelay: '0ms' }}>L</span>
+<span style={{ transitionDelay: '50ms' }}>o</span>
+<span style={{ transitionDelay: '100ms' }}>a</span>
+<span style={{ transitionDelay: '150ms' }}>n</span>
+<span style={{ transitionDelay: '200ms' }}> </span>
+<span style={{ transitionDelay: '250ms' }}>T</span>
+<span style={{ transitionDelay: '300ms' }}>e</span>
+<span style={{ transitionDelay: '350ms' }}>n</span>
+<span style={{ transitionDelay: '400ms' }}>u</span>
+<span style={{ transitionDelay: '450ms' }}>r</span>
+<span style={{ transitionDelay: '500ms' }}>e</span>
+<span style={{ transitionDelay: '550ms' }}> </span>
+{/* <span style={{ transitionDelay: '650ms' }}>i</span>
+<span style={{ transitionDelay: '700ms' }}>n</span> */}
+<span style={{ transitionDelay: '750ms' }}>(</span>
+<span style={{ transitionDelay: '800ms' }}>m</span>
+<span style={{ transitionDelay: '850ms' }}>o</span>
+<span style={{ transitionDelay: '750ms' }}>)</span>
+
+{/* <span style={{ transitionDelay: '900ms' }}>n</span>
+<span style={{ transitionDelay: '950ms' }}>t</span>
+<span style={{ transitionDelay: '1000ms' }}>h</span>
+<span style={{ transitionDelay: '1050ms' }}>s</span> */}
+
           </label>
           <button onClick={calculateEMI}>EMI</button>
         </div>
